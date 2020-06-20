@@ -34,6 +34,10 @@ class Version20200620110128CreateCommandTable extends Migration
      */
     public function rollback()
     {
+        $this->alter("products", function (SQLGenerator $table) {
+            $table->dropForeign('product_id');
+            $table->dropForeign('user_id');
+        });
         $this->dropIfExists("commands");
     }
 }
