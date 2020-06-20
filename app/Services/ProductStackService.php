@@ -42,8 +42,8 @@ class ProductStackService
     {
     	$removed = false;
 
-    	foreach($this->products as $product_id => $product) {
-    		if ($product_id === $id) {
+    	foreach ($this->products as $product_id => $product) {
+    		if ($product_id == $id) {
     			$removed = true;
 	    		unset($this->products[$id]);
 	    		break;
@@ -133,6 +133,20 @@ class ProductStackService
     		$ids[] = $product['id'];
     	}
 
-    	return \App\Models\Product::whereIn('id', $ids)->get();
+        if (count($ids) == 0) {
+            return [];
+        }
+
+        $products = \App\Models\Product::whereIn('id', $ids)->get();
+        $data = [];
+
+        foreach($products as $product) {
+            $data[] = [
+                'model' => $product,
+                'quantity' => $this->products[$product->id]['quantity']
+            ];
+        }
+
+    	return $data;
     }
 }

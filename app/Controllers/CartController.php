@@ -34,8 +34,13 @@ class CartController extends Controller
     public function __invoke()
     {
     	$products = $this->product_stack->getProducts();
+    	$total_price = 0;
 
-    	return $this->render('product.card', compact('products'));
+    	foreach($products as $product) {
+    		$total_price += ($product['model']->price * $product['quantity']);
+    	}
+
+    	return $this->render('product.card', compact('products', 'total_price'));
     }
 
     /**
@@ -49,13 +54,30 @@ class CartController extends Controller
     	$product = $request->only(['id', 'quantity']);
 
     	if ($this->product_stack->exists($product['id'])) {
-    		$request->session()->flash('error', 'Le produit existe déjà dans votre liste');
-    		return redirect()->back();
+    		return redirect('/products/'.$product['id'].'?message=Le produit existe déjà dans votre liste');
     	}
 
     	$this->product_stack->push($product);
-    	$request->session()->flash('success', 'Le produit a bien été ajouté');
 
-		return redirect()->back();
+		return redirect('/products/'.$product['id'].'?message=Le produit existe déjà dans votre liste');
+    }
+
+    /**
+     * Delete product in stack
+     * 
+     * @param Request $request
+     * @param int $product_id
+     * @return mixed
+     */
+    public function removeProduct(Request $request, $product_id)
+    {
+    	$product_id = (int) $product_id;
+
+    	if (!$this->product_stack->exists($product_id)) {
+    		return redirect('/?message=Le produit n\'existe pas dans le chariot');
+    	}
+
+    	$this->product_stack->remove($product_id);
+		return redirect('/cart/?message=Le produit a été supprimé du chariot');
     }
 }

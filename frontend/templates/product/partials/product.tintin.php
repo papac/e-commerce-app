@@ -2,7 +2,9 @@
 	<div class="card">
 		<img class="card-img-top" src="{{ $product->image }}" alt="{{ $product->name }}">
 		<div class="card-body">
-			<h4 class="card-title"><a href="/products/{{ $product->id }}" title="View Product">{{ $product->name }}</a></h4>
+			<h4 class="card-title">
+				<a href="/products/{{ $product->id }}" title="View Product">{{ $product->name }}</a>
+			</h4>
 			<p class="card-text">{{ substr($product->description, 0, 50) }}...</p>
 			<div class="row">
 				<div class="col">
