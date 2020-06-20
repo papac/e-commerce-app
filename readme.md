@@ -7,11 +7,14 @@ This is e-commerce-app exemple make with [Bow Framework](https://github.com/bowp
 ```bash
 git clone https://github.com/papac/e-commerce-app
 cd e-commerce-app
+cp .env.exemple.json .env.json
 composer install
 npm install
 ```
 
 ## Datase migration
+
+Mettez à jour les informations de connexion dans `.env.json` 
 
 ```bash
 cd e-commerce-app
