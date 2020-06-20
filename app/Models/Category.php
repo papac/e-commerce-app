@@ -8,6 +8,13 @@ use Bow\Database\Barry\Collection;
 class Category extends Model
 {
 	/**
+	 * Define the table use by ORM
+	 * 
+	 * @var string
+	 */
+	protected $table = 'categories';
+
+	/**
 	 * Get the products
 	 * 
 	 * @return Collection

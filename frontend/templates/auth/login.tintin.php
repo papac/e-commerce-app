@@ -1,4 +1,4 @@
-#extends('layouts.app', ['active' => '#'])
+#extends('layouts.app', ['active' => 'login'])
 
 #block('title', 'Connexion')
 
@@ -7,7 +7,7 @@
 	<h3>Connexion</h3>
 	<div class="row text-center">
 		<div class="col-sm-4">
-			<form action="/inscription" method="post">
+			<form action="/login" method="post">
 				<div class="form-group">
 					<input class="form-control" name="email" placeholder="E-mail.." />
 				</div>

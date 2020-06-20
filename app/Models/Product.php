@@ -15,4 +15,14 @@ class Product extends Model
     {
     	return $this->hasMany(Command::class, 'product_id');
     }
+
+	/**
+	 * Get the category associate
+	 * 
+	 * @return Category|null
+	 */
+    public function category()
+    {
+    	return $this->belongsTo(Category::class, 'category_id');
+    }
 }

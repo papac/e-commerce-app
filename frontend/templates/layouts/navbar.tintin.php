@@ -8,10 +8,10 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
             <ul class="navbar-nav m-auto">
                 <li class="nav-item {{ $active == 'product' ? 'active' : '' }}">
-                    <a class="nav-link" href="/products">Produits</a>
+                    <a class="nav-link" href="/">Produits</a>
                 </li>
                 <li class="nav-item {{ $active == 'cart' ? 'active' : '' }}">
-                    <a class="nav-link" href="/cart">Cart</a>
+                    <a class="nav-link" href="/cart">Chariot</a>
                 </li>
                 <li class="nav-item {{ $active == 'contact' ? 'active' : '' }}">
                     <a class="nav-link" href="/contact">Contact</a>
@@ -27,11 +27,19 @@
                         </button>
                     </div>
                 </div>
-                <a class="btn btn-success btn-sm ml-3" href="/cart">
-                    <i class="fa fa-shopping-cart"></i> Cart
-                    <span class="badge badge-light">3</span>
+                <a class="btn btn-{{ count_stack() > 0 ? 'success' : 'default' }} btn-sm ml-3" href="/cart">
+                    <i class="fa fa-shopping-cart"></i> Chariot
+                    <span class="badge badge-light">{{ count_stack() }}</span>
                 </a>
             </form>
+            <ul class="navbar-nav m-auto">
+                <li class="nav-item {{ $active == 'login' ? 'active' : '' }}">
+                    <a class="nav-link" href="/login">Connexion</a>
+                </li>
+                <li class="nav-item {{ $active == 'register' ? 'active' : '' }}">
+                    <a class="nav-link" href="/register">Inscription</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

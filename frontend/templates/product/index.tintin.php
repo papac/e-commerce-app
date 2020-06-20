@@ -1,6 +1,6 @@
 #extends('layouts.app', ['active' => 'product'])
 
-#block('title', 'Welcome to E-Commerce App')
+#block('title', 'Liste des products')
 
 #block('content')
 <section class="jumbotron text-center">
@@ -12,12 +12,18 @@
 #include('product.partials.breadcrumb')
 <div class="container mb-5">
     <div class="row">
-    	#include('product.partials.category')
+    	#include('product.partials.category', ['categories' => $categories, 'category' => $category])
         <div class="col">
             <div class="row">
-                #loop(range(1, 10) as $product)
-                	#include('product.partials.product')
-                #endloop
+                #if (count($products) > 0)
+                    #loop($products as $product)
+                    	#include('product.partials.product', compact('product'))
+                    #endloop
+                #else
+                    <div class="col-sm-12 text-center">
+                        Aucun produit trouvé
+                    </div>
+                #endif
             </div>
         </div>
     </div>

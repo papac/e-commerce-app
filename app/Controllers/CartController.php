@@ -33,7 +33,9 @@ class CartController extends Controller
 	 */
     public function __invoke()
     {
-    	return $this->render('product.card');
+    	$products = $this->product_stack->getProducts();
+
+    	return $this->render('product.card', compact('products'));
     }
 
     /**
@@ -47,11 +49,13 @@ class CartController extends Controller
     	$product = $request->only(['id', 'quantity']);
 
     	if ($this->product_stack->exists($product['id'])) {
-    		return 'Le produit existe déjà dans votre liste';
+    		$request->session()->flash('error', 'Le produit existe déjà dans votre liste');
+    		return redirect()->back();
     	}
 
     	$this->product_stack->push($product);
+    	$request->session()->flash('success', 'Le produit a bien été ajouté');
 
-		return 'Le produit a bien été ajouté';
+		return redirect()->back();
     }
 }

@@ -92,11 +92,32 @@ class ProductStackService
     /**
      * Count of items
      * 
-     * @return int
+     * @return bool
      */
     public function count()
     {
     	return count($this->products);
+    }
+
+    /**
+     * Check if product exists
+     * 
+     * @param int $id
+     * @return bool
+     */
+    public function exists($id)
+    {
+    	return isset($this->products[$id]);
+    }
+
+    /**
+     * Get the products to array
+     * 
+     * @return array
+     */
+    public function toArray()
+    {
+    	return $this->products;
     }
 
     /**
@@ -106,6 +127,12 @@ class ProductStackService
      */
     public function getProducts()
     {
-    	return $this->products;
+    	$ids = [];
+
+    	foreach($this->products as $product) {
+    		$ids[] = $product['id'];
+    	}
+
+    	return \App\Models\Product::whereIn('id', $ids)->get();
     }
 }
